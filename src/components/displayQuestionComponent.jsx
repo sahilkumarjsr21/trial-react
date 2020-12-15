@@ -146,7 +146,7 @@ function Row(props) {
                 {row.questionDescription}
               </TableCell>
               <TableCell className = {classes.row}>
-                {row.questionDifficulty}
+                {row.difficulty}
               </TableCell>
               <TableCell className = {classes.row}>
                 {row.questionScore}
