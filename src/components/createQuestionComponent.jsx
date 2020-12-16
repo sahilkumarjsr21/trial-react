@@ -427,6 +427,7 @@ export default function CreateQuestion(props) {
             setDisableEdit(true);
         }
     };
+    console.log("formData", formData)
     if (onSaveButtonClicked) {
         return (
             <React.Fragment>
@@ -567,7 +568,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect1"
                                     id="gender"
-                                    defaultValue={formData.choices[0].isCorrect ? formData.choices[0].isCorrect : isCorrectList[0]}
+                                    defaultValue={formData.choices[0].correct}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect1",
@@ -605,7 +606,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect2"
                                     id="gender"
-                                    defaultValue={formData.choices[1].isCorrect ? formData.choices[1].isCorrect : isCorrectList[0]}
+                                    defaultValue={formData.choices[1].correct}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect2",
@@ -637,13 +638,14 @@ export default function CreateQuestion(props) {
                         </Grid>
                         <Grid item>
                             <FormControl variant="outlined" className={classes.gender}>
-                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
+                                <InputLabel
+                                    htmlFor="type-native-simple" required>is Correct</InputLabel>
                                 <Select
                                     native
                                     label="Option is Correct"
                                     name="isCorrect3"
                                     id="gender"
-                                    defaultValue={formData.choices[2].isCorrect ? formData.choices[2].isCorrect : isCorrectList[0]}
+                                    defaultValue={formData.choices[2].correct}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect3",
@@ -675,13 +677,14 @@ export default function CreateQuestion(props) {
                         </Grid>
                         <Grid item s={12}>
                             <FormControl variant="outlined" className={classes.gender}>
-                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
+                                <InputLabel defaultValue={formData.choices[3].isCorrect ? formData.choices[3].isCorrect : isCorrectList[0]}
+                                    htmlFor="type-native-simple" required>is Correct</InputLabel>
                                 <Select
                                     native
                                     label="Option is Correct"
                                     name="isCorrect4"
                                     id="gender"
-                                    defaultValue={formData.choices[3].isCorrect ? formData.choices[3].isCorrect : isCorrectList[0]}
+                                    defaultValue={formData.choices[3].correct}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect4",
