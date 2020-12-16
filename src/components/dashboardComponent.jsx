@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
+        marginTop: theme.spacing(9),
     },
 }));
 

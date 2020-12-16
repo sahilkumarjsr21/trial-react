@@ -410,7 +410,7 @@ export default function CreateQuestion(props) {
     const handleDeletePatient = (e) => {
         e.preventDefault();
         setCancelButtonClicked(true);
-        dispatch({ type: ActionTypes.DELETE_QUESTION_DETAILS_PROGRESS, payload: formData.id })
+        dispatch({ type: ActionTypes.DELETE_QUESTION_DETAILS_PROGRESS, payload: formData.questionId })
     };
     const handleCancel = (e) => {
         e.preventDefault();
