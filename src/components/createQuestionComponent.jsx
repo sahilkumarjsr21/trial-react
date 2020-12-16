@@ -346,20 +346,20 @@ export default function CreateQuestion(props) {
         let valid = true;
         let choiceArray = [
             {
-                optionDescription: choiceDescription1,
-                correct: choice1
+                optionDescription: choiceDescription1 === "" ? formData.choices[0].optionDescription : choiceDescription1,
+                correct: choice1=="false" ? formData.choices[0].correct : choice1,
             },
             {
-                optionDescription: choiceDescription2,
-                correct: choice2
+                optionDescription: choiceDescription2 === "" ? formData.choices[1].optionDescription : choiceDescription2,
+                correct: choice2== "false" ? formData.choices[1].correct : choice2,
             },
             {
-                optionDescription: choiceDescription3,
-                correct: choice3
+                optionDescription: choiceDescription3 === "" ? formData.choices[2].optionDescription : choiceDescription3,
+                correct: choice3== "false" ? formData.choices[2].correct : choice3,
             },
             {
-                optionDescription: choiceDescription4,
-                correct: choice4
+                optionDescription: choiceDescription4 === "" ? formData.choices[3].optionDescription : choiceDescription4,
+                correct: choice4== "false" ? formData.choices[3].correct : choice4,
             },
         ]
         if (choiceDescription1 !== "" || choiceDescription2 !== "" || choiceDescription3 !== "" || choiceDescription4 !== "" || choice1 !== "false" || choice2 !== "false" || choice3 !== "false" || choice4 !== "false") {
