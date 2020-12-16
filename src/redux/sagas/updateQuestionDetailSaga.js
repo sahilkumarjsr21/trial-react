@@ -8,10 +8,11 @@ export function* updateQuestionHandler(action) {
   try {
     let {payload} = action;
      const data = {
+       questionId: payload.questionId,
        questionDescription: payload.questionDescription,
        questionScore: payload.questionScore,
        difficulty: payload.difficulty,
-        choices: payload.choices[0]
+        choices: payload.choices.slice(0,4)
      }
      console.log(data)
     const response = yield updateQuestionDetailsApi(data);
