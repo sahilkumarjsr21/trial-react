@@ -6,7 +6,14 @@ import { takeLatest, put } from "redux-saga/effects";
 
 export function* saveQuestionHandler(action) {
   try {
-    const response = yield addQuestionDetailsApi(action.payload);
+    let {payload} = action;
+     const data = {
+       questionDescription: payload.questionDescription,
+       questionScore: payload.questionScore,
+       difficulty: payload.difficulty,
+        choices: payload.choices[0]
+     }
+    const response = yield addQuestionDetailsApi(data);
     yield put(setData(response));
     yield put(fetchQuestionDataProgress());
   } catch (e) {

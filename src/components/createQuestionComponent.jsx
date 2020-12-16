@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         marginBottom: theme.spacing(1),
     },
+    choices: {
+        width: '75%'
+    },
     header: {
         display: "flex",
         marginTop: theme.spacing(10)
@@ -43,17 +46,16 @@ export default function CreateQuestion(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const emptyErrorMessage = `Can't be empty`;
-    const phoneNumberRegexp = RegExp(
-        /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
-    )
-    
+    const difficultyList = ["EASY", "HARD", "MEDIUM"];
+    const isCorrectList = ["false", "true"];
+
     const [onSaveButtonClicked, setSaveButtonClicked] = useState(false);
     const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
     var questionFormData = {
         questionDescription: "",
-        difficulty: "",
+        difficulty: difficultyList[0],
         questionScore: "",
-        choices: [],
+        choices: []
     };
     if (props.questionDetails !== null) {
         questionFormData = props.questionDetails;
@@ -67,21 +69,35 @@ export default function CreateQuestion(props) {
         questionDifficultyError: false,
         questionScoreError: false,
         questionOptionsError: false,
+        choiceError1: false,
+        choiceError1Message: "",
+        choiceError2: false,
+        choiceError2Message: "",
+        choiceError3: false,
+        choiceError3Message: "",
+        choiceError4: false,
+        choiceError4Message: "",
+        optionError1: false,
+        optionError1Message: "",
+        optionError2: false,
+        optionError2Message: "",
+        optionError3: false,
+        optionError3Message: "",
+        optionError4: false,
+        optionError4Message: "",
         questionDescriptionMessage: "",
         questionDifficultyMessage: "",
         questionScoreMessage: "",
-        
+
     });
-    const difficultyList = ["", `HARD`, `EASY`, `MEDIUM`];
-    const isCorrectList = ["", "true", "false"]
-    
+
     const [disableEdit, setDisableEdit] = useState(true);
     React.useEffect(() => {
         return () => {
             setCancelButtonClicked(false)
         }
     }, [cancelButtonClicked])
-   
+
 
     const setPatientNameErrorType = (message) => {
         setFormErrors((prevState) => ({
@@ -104,15 +120,175 @@ export default function CreateQuestion(props) {
             phoneNumberMessage: message,
         }));
     };
-    
-    
+
+    const [choiceDescription1, setChoiceDescription1] = useState("")
+    const [choiceDescription2, setChoiceDescription2] = useState("")
+    const [choiceDescription3, setChoiceDescription3] = useState("")
+    const [choiceDescription4, setChoiceDescription4] = useState("")
+
+    const [choice1, setChoice1] = useState(false)
+    const [choice2, setChoice2] = useState(false)
+    const [choice3, setChoice3] = useState(false)
+    const [choice4, setChoice4] = useState(false)
+
+    const handleOptionChange = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "isCorrect1":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        optionError1: true,
+                        optionError1Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        optionError1: false,
+                        optionError1Message: ""
+                    });
+                }
+                setChoice1(value === 'true');
+                break;
+            case "isCorrect2":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        optionError2: true,
+                        optionError2Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        optionError2: false,
+                        optionError2Message: ""
+                    });
+                }
+                setChoice2(value === 'true');
+                break;
+            case "isCorrect3":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        optionError3: true,
+                        optionError3Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        optionError3: false,
+                        optionError3Message: ""
+                    });
+                }
+                setChoice3(value === 'true');
+                break;
+            case "isCorrect4":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        optionError4: true,
+                        optionError4Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        optionError4: false,
+                        optionError4Message: ""
+                    });
+                }
+                setChoice4(value === 'true');
+                break;
+            default:
+                break;
+        }
+    }
+
+    const handleChoice = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "choice1":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        choiceError1: true,
+                        choiceError1Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        choiceError1: false,
+                        choiceError1Message: ""
+                    });
+                }
+                setChoiceDescription1(value);
+                break;
+            case "choice2":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        choiceError2: true,
+                        choiceError2Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        choiceError2: false,
+                        choiceError2Message: ""
+                    });
+                }
+                setChoiceDescription2(value);
+                break;
+            case "choice3":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        choiceError3: true,
+                        choiceError3Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        choiceError3: false,
+                        choiceError3Message: ""
+                    });
+                }
+                setChoiceDescription3(value);
+                break;
+            case "choice4":
+                if (value === "") {
+                    setFormErrors((prevState) => ({
+                        ...prevState,
+                        choiceError4: true,
+                        choiceError4Message: emptyErrorMessage,
+                    }));
+                }
+                else {
+                    setFormErrors({
+                        ...formErrors,
+                        choiceError4: false,
+                        choiceError4Message: ""
+                    });
+                }
+                setChoiceDescription4(value);
+                break;
+            default:
+                break;
+        }
+    }
     const handleOnChange = (e) => {
         e.preventDefault();
         setDisableEdit(false);
         const { name, value } = e.target;
         switch (name) {
             case "patientname":
-                setFormData({ ...formData, patientName: value });
+                setFormData({ ...formData, questionDescription: value });
                 if (value === "") {
                     setPatientNameErrorType(emptyErrorMessage);
                 } else if (value.length < 3) {
@@ -125,14 +301,14 @@ export default function CreateQuestion(props) {
                     });
                 }
                 break;
-            case "gender":
-                setFormData({ ...formData, gender: value });
+            case "difficulty":
+                setFormData({ ...formData, difficulty: value });
                 if (value === "") {
                     setPatientGenderErrorType("Must be one of the option");
                 }
                 break;
             case "phonenumber":
-                setFormData({ ...formData, phoneNumber: value });
+                setFormData({ ...formData, questionScore: value });
                 if (value === "") {
                     setPatientPhoneErrorType(emptyErrorMessage);
                 } else {
@@ -159,10 +335,6 @@ export default function CreateQuestion(props) {
                     });
                 }
                 break;
-            case "choice1description":
-                setFormData({...formData, })
-                break;
-            
             default:
                 break;
         }
@@ -170,20 +342,34 @@ export default function CreateQuestion(props) {
 
     const formValid = (formData, formErrors) => {
         let valid = true;
+        let choiceArray = [
+            {
+                optionDescription: choiceDescription1,
+                isCorrect: choice1
+            },
+            {
+                optionDescription: choiceDescription2,
+                isCorrect: choice2
+            },
+            {
+                optionDescription: choiceDescription3,
+                isCorrect: choice3
+            },
+            {
+                optionDescription: choiceDescription4,
+                isCorrect: choice4
+            },
+        ]
+        setFormData((prevState) => ({
+            ...prevState,
+            choices: prevState.choices.push(choiceArray)
+        }))
         if (formData.patientName === "") {
             setPatientNameErrorType(emptyErrorMessage);
             valid = false;
         }
         if (formData.phoneNumber === "") {
             setPatientPhoneErrorType(emptyErrorMessage);
-            valid = false;
-        }
-        if (formData.heartRate === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                heartRateError: true,
-                heartRateMessage: emptyErrorMessage,
-            }));
             valid = false;
         }
         if (formData.patientAddress === "") {
@@ -194,129 +380,19 @@ export default function CreateQuestion(props) {
             }));
             valid = false;
         }
-        if (formData.accommodation === "" || formData.accommodation === null) {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                accommodationError: true,
-                accommodationMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        else {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                accommodationError: false,
-                accommodationMessage: '',
-            }));
-            valid = true
-        }
-        if (formData.allergies === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                allergiesError: true,
-                allergiesMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        if (formData.temperature === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                temperatureError: true,
-                temperatureMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        if (formData.heartRate === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                heartRateError: true,
-                heartRateMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        if (formData.bloodPressure === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                bloodPressureError: true,
-                bloodPressureMessage: emptyErrorMessage,
-            }));
-        }
-        if (formData.physicianName === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                physicianNameError: true,
-                physicianNameMessage: emptyErrorMessage,
-            }));
-        }
-        if (formData.physicianType === "" || formData.physicianType === null) {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                physicianTypeError: true,
-                physicianTypeMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        else {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                physicianTypeError: false,
-                physicianTypeMessage: ``,
-            }));
-            valid = true
-        }
-        if (formData.physicianPhone === "") {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                physicianPhoneError: true,
-                physicianPhoneMessage: emptyErrorMessage,
-            }));
-        }
-        if (formData.hospitalVisited === "" || formData.hospitalVisited === null) {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                hospitalVisitedError: true,
-                hospitalVisitedMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        else {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                hospitalVisitedError: false,
-                hospitalVisitedMessage: '',
-            }));
-        }
-        if (formData.caseType === "" || formData.caseType === null) {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                caseTypeError: true,
-                caseTypeMessage: emptyErrorMessage,
-            }));
-            valid = false;
-        }
-        else {
-            setFormErrors((prevState) => ({
-                ...prevState,
-                caseTypeError: false,
-                caseTypeMessage: ``,
-            }));
-            valid = true
-        }
         if (
-            formErrors.accommodationError ||
-            formErrors.allergiesError ||
-            formErrors.bloodPressureError ||
-            formErrors.caseTypeError ||
-            formErrors.heartRateError ||
             formErrors.patientAddressError ||
             formErrors.patientNameError ||
             formErrors.phoneNumberError ||
-            formErrors.physicianNameError ||
-            formErrors.physicianPhoneError ||
-            formErrors.physicianTypeError ||
-            formErrors.temperatureError ||
-            formErrors.hospitalVisitedError ||
-            formErrors.patientAddress
+            formErrors.patientAddress ||
+            formErrors.choiceError1 ||
+            formErrors.choiceError2 ||
+            formErrors.choiceError3 ||
+            formErrors.choiceError4 ||
+            formErrors.optionError1 ||
+            formErrors.optionError2 ||
+            formErrors.optionError3 ||
+            formErrors.optionError4
         ) {
             valid = false;
         }
@@ -347,7 +423,6 @@ export default function CreateQuestion(props) {
             dispatch({ type: ActionTypes.UPDATE_QUESTION_DETAILS_PROGRESS, payload: formData })
             setDisableEdit(true);
         }
-
     };
     if (onSaveButtonClicked) {
         return (
@@ -411,6 +486,7 @@ export default function CreateQuestion(props) {
                                 required
                                 fullWidth
                                 multiline
+                                rows={3}
                                 id="patientname"
                                 label="Question Description"
                                 error={formErrors.patientNameError}
@@ -421,12 +497,12 @@ export default function CreateQuestion(props) {
                     </Grid>
                     <Grid container spacing={2} className={classes.grid}>
                         <Grid item>
-                            <FormControl variant="outlined" className={classes.gender}>   
+                            <FormControl variant="outlined" className={classes.gender}>
                                 <InputLabel htmlFor="type-native-simple">Difficulty</InputLabel>
                                 <Select             // difficulty
                                     native
                                     label="Difficulty"
-                                    name="gender"
+                                    name="difficulty"
                                     id="gender"
                                     onChange={handleOnChange}
                                     inputProps={{
@@ -462,25 +538,30 @@ export default function CreateQuestion(props) {
                         </Grid>
                     </Grid>
                     <Grid container spacing={2} className={classes.grid}>
-                        <Grid item>
+                        <Grid item className={classes.choices}>
                             <TextField
                                 label="Choice 1 Description"
                                 variant="outlined"
+                                fullWidth
                                 multiline
-                                error={formErrors.phoneNumberError}
-                                helperText={formErrors.phoneNumberMessage}
-                                onChange={handleOnChange}
+                                required
+                                id="choice1"
+                                name="choice1"
+                                onChange={handleChoice}
+                                error={formErrors.choiceError1}
+                                helperText={formErrors.choiceError1Message}
                             />
                         </Grid>
                         <Grid item>
                             <FormControl variant="outlined" className={classes.gender}>
-                                <InputLabel htmlFor="type-native-simple">is Correct</InputLabel>
+                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
                                 <Select
                                     native
                                     label="Option is Correct"
-                                    name="gender"
+                                    name="isCorrect1"
                                     id="gender"
-                                    onChange={handleOnChange}
+                                    defaultValue={isCorrectList[0]}
+                                    onChange={handleOptionChange}
                                     inputProps={{
                                         name: "gender",
                                         id: "type-native-simple",
@@ -494,25 +575,30 @@ export default function CreateQuestion(props) {
                         </Grid>
                     </Grid>
                     <Grid container spacing={2} className={classes.grid}>
-                        <Grid item>
+                        <Grid item className={classes.choices}>
                             <TextField
                                 label="Choice 2 Description"
                                 variant="outlined"
                                 multiline
-                                error={formErrors.phoneNumberError}
-                                helperText={formErrors.phoneNumberMessage}
-                                onChange={handleOnChange}
+                                fullWidth
+                                required
+                                id="choice2"
+                                name="choice2"
+                                error={formErrors.choiceError2}
+                                onChange={handleChoice}
+                                helperText={formErrors.choiceError2Message}
                             />
                         </Grid>
                         <Grid item>
                             <FormControl variant="outlined" className={classes.gender}>
-                                <InputLabel htmlFor="type-native-simple">is Correct</InputLabel>
+                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
                                 <Select
                                     native
                                     label="Option is Correct"
-                                    name="gender"
+                                    name="isCorrect2"
                                     id="gender"
-                                    onChange={handleOnChange}
+                                    defaultValue={isCorrectList[0]}
+                                    onChange={handleOptionChange}
                                     inputProps={{
                                         name: "gender",
                                         id: "type-native-simple",
@@ -524,69 +610,79 @@ export default function CreateQuestion(props) {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid container spacing={2} className={classes.grid}>
-                            <Grid item>
-                                <TextField
-                                    label="Choice 3 Description"
-                                    variant="outlined"
-                                    multiline
-                                    error={formErrors.phoneNumberError}
-                                    helperText={formErrors.phoneNumberMessage}
-                                    onChange={handleOnChange}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <FormControl variant="outlined" className={classes.gender}>
-                                    <InputLabel htmlFor="type-native-simple">is Correct</InputLabel>
-                                    <Select
-                                        native
-                                        label="Option is Correct"
-                                        name="gender"
-                                        id="gender"
-                                        onChange={handleOnChange}
-                                        inputProps={{
-                                            name: "gender",
-                                            id: "type-native-simple",
-                                        }}
-                                    >
-                                        {isCorrectList.map((list) => (
-                                            <option value={list}>{list}</option>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid container spacing={2} className={classes.grid}>
-                                <Grid item>
-                                    <TextField
-                                        label="Choice 4 Description"
-                                        variant="outlined"
-                                        multiline
-                                        error={formErrors.phoneNumberError}
-                                        helperText={formErrors.phoneNumberMessage}
-                                        onChange={handleOnChange}
-                                    />
-                                </Grid>
-                                <Grid item s={12}>
-                                    <FormControl variant="outlined" className={classes.gender}>
-                                        <InputLabel htmlFor="type-native-simple">is Correct</InputLabel>
-                                        <Select
-                                            native
-                                            label="Option is Correct"
-                                            name="gender"
-                                            id="gender"
-                                            onChange={handleOnChange}
-                                            inputProps={{
-                                                name: "gender",
-                                                id: "type-native-simple",
-                                            }}
-                                        >
-                                            {isCorrectList.map((list) => (
-                                                <option value={list}>{list}</option>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
+                    </Grid>
+                    <Grid container spacing={2} className={classes.grid}>
+                        <Grid item className={classes.choices}>
+                            <TextField
+                                label="Choice 3 Description"
+                                variant="outlined"
+                                multiline
+                                fullWidth
+                                required
+                                id="choice3"
+                                name="choice3"
+                                error={formErrors.choiceError3}
+                                helperText={formErrors.choiceError3Message}
+                                onChange={handleChoice}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <FormControl variant="outlined" className={classes.gender}>
+                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
+                                <Select
+                                    native
+                                    label="Option is Correct"
+                                    name="isCorrect3"
+                                    id="gender"
+                                    defaultValue={isCorrectList[0]}
+                                    onChange={handleOptionChange}
+                                    inputProps={{
+                                        name: "gender",
+                                        id: "type-native-simple",
+                                    }}
+                                >
+                                    {isCorrectList.map((list) => (
+                                        <option value={list}>{list}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2} className={classes.grid}>
+                        <Grid item className={classes.choices}>
+                            <TextField
+                                label="Choice 4 Description"
+                                variant="outlined"
+                                multiline
+                                fullWidth
+                                required
+                                id="choice4"
+                                name="choice4"
+                                error={formErrors.choiceError4}
+                                helperText={formErrors.choiceError4Message}
+                                onChange={handleChoice}
+                            />
+                        </Grid>
+                        <Grid item s={12}>
+                            <FormControl variant="outlined" className={classes.gender}>
+                                <InputLabel htmlFor="type-native-simple" required>is Correct</InputLabel>
+                                <Select
+                                    native
+                                    label="Option is Correct"
+                                    name="isCorrect4"
+                                    id="gender"
+                                    defaultValue={isCorrectList[0]}
+                                    onChange={handleOptionChange}
+                                    inputProps={{
+                                        name: "gender",
+                                        id: "type-native-simple",
+                                    }}
+                                >
+                                    {isCorrectList.map((list) => (
+                                        <option value={list}>{list}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                 </form>
