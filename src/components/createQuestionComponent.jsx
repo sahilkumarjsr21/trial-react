@@ -149,6 +149,8 @@ export default function CreateQuestion(props) {
                         optionError1Message: ""
                     });
                 }
+                console.log("value", value);
+                console.log("value1 ", value === 'true');
                 setChoice1(value === 'true');
                 break;
             case "isCorrect2":
@@ -363,7 +365,8 @@ export default function CreateQuestion(props) {
         setFormData((prevState) => ({
             ...prevState,
             choices: prevState.choices.push(choiceArray)
-        }))
+        }));
+        console.log(choiceArray);
         if (formData.patientName === "") {
             setPatientNameErrorType(emptyErrorMessage);
             valid = false;
@@ -487,6 +490,7 @@ export default function CreateQuestion(props) {
                                 fullWidth
                                 multiline
                                 rows={3}
+                                defaultValue={formData.questionDescription}
                                 id="patientname"
                                 label="Question Description"
                                 error={formErrors.patientNameError}
@@ -503,10 +507,11 @@ export default function CreateQuestion(props) {
                                     native
                                     label="Difficulty"
                                     name="difficulty"
+                                    defaultValue={formData.difficulty === '' ? difficultyList[0] : formData.difficulty}
                                     id="gender"
                                     onChange={handleOnChange}
                                     inputProps={{
-                                        name: "gender",
+                                        name: "difficulty",
                                         id: "type-native-simple",
                                     }}
                                 >
@@ -525,6 +530,7 @@ export default function CreateQuestion(props) {
                                 fullWidth
                                 type="number"
                                 id="phonenumber"
+                                defaultValue={formData.questionScore}
                                 label="Question Score"
                                 error={formErrors.phoneNumberError}
                                 helperText={formErrors.phoneNumberMessage}
@@ -563,7 +569,7 @@ export default function CreateQuestion(props) {
                                     defaultValue={isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
-                                        name: "gender",
+                                        name: "isCorrect1",
                                         id: "type-native-simple",
                                     }}
                                 >
@@ -600,7 +606,7 @@ export default function CreateQuestion(props) {
                                     defaultValue={isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
-                                        name: "gender",
+                                        name: "isCorrect2",
                                         id: "type-native-simple",
                                     }}
                                 >
@@ -637,7 +643,7 @@ export default function CreateQuestion(props) {
                                     defaultValue={isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
-                                        name: "gender",
+                                        name: "isCorrect3",
                                         id: "type-native-simple",
                                     }}
                                 >
@@ -674,7 +680,7 @@ export default function CreateQuestion(props) {
                                     defaultValue={isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
-                                        name: "gender",
+                                        name: "isCorrect4",
                                         id: "type-native-simple",
                                     }}
                                 >

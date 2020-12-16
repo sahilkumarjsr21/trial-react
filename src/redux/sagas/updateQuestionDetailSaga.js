@@ -6,7 +6,15 @@ import { takeLatest, put } from "redux-saga/effects";
 
 export function* updateQuestionHandler(action) {
   try {
-    const response = yield updateQuestionDetailsApi(action.payload);
+    let {payload} = action;
+     const data = {
+       questionDescription: payload.questionDescription,
+       questionScore: payload.questionScore,
+       difficulty: payload.difficulty,
+        choices: payload.choices[0]
+     }
+     console.log(data)
+    const response = yield updateQuestionDetailsApi(data);
     yield put(succcessUpdate(response));
     yield put(fetchQuestionDataProgress());
   } catch (e) {
