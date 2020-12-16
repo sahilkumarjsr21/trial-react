@@ -362,7 +362,7 @@ export default function CreateQuestion(props) {
                 correct: choice4
             },
         ]
-        if(choiceDescription1 !== "" || choiceDescription2 !== "" || choiceDescription3 !== "" || choiceDescription4 !== "") {
+        if (choiceDescription1 !== "" || choiceDescription2 !== "" || choiceDescription3 !== "" || choiceDescription4 !== "" || choice1 !== "false" || choice2 !== "false" || choice3 !== "false" || choice4 !== "false") {
             setFormData((prevState) => ({
                 ...prevState,
                 choices: prevState.choices.push(choiceArray)
