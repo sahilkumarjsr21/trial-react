@@ -347,25 +347,27 @@ export default function CreateQuestion(props) {
         let choiceArray = [
             {
                 optionDescription: choiceDescription1,
-                isCorrect: choice1
+                correct: choice1
             },
             {
                 optionDescription: choiceDescription2,
-                isCorrect: choice2
+                correct: choice2
             },
             {
                 optionDescription: choiceDescription3,
-                isCorrect: choice3
+                correct: choice3
             },
             {
                 optionDescription: choiceDescription4,
-                isCorrect: choice4
+                correct: choice4
             },
         ]
-        setFormData((prevState) => ({
-            ...prevState,
-            choices: prevState.choices.push(choiceArray)
-        }));
+        if(choiceDescription1 !== "" || choiceDescription2 !== "" || choiceDescription3 !== "" || choiceDescription4 !== "") {
+            setFormData((prevState) => ({
+                ...prevState,
+                choices: prevState.choices.push(choiceArray)
+            }));
+        }
         console.log(choiceArray);
         if (formData.patientName === "") {
             setPatientNameErrorType(emptyErrorMessage);

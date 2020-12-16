@@ -12,7 +12,7 @@ export function* updateQuestionHandler(action) {
        questionDescription: payload.questionDescription,
        questionScore: payload.questionScore,
        difficulty: payload.difficulty,
-        choices: payload.choices.slice(0,4)
+        choices: payload.choices.length >=5 ? payload.choices.slice(0,4) : payload.choices
      }
      console.log("Action", action)
      console.log("Data", data)
