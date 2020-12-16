@@ -5,6 +5,7 @@ const fetchQuestionDetails = async ()=>{
         return await Axios.get(
           "http://localhost:8080/questions/",
         ).then((res) => {
+            console.log(res.data);
           return res.data;
         });
       } catch (err) {
