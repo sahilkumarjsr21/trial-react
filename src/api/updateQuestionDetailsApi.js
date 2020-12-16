@@ -1,8 +1,11 @@
 import Axios from "axios";
 const updateQuestion = async (payload)=>{
     try {
-        return await Axios.post(
-            `http://localhost:8080/questions/updateQuestion/${payload.questionId}`,payload
+        const questionId = payload.questionId
+        delete payload.questionId
+        payload.choices.map((choice)=> delete choice.optionId)
+        return await Axios.put(
+            `http://localhost:8080/questions/updateQuestion/${questionId}`,payload
         ).then((res) => {
           return res.data;
         });

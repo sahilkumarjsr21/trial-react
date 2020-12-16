@@ -14,7 +14,8 @@ export function* updateQuestionHandler(action) {
        difficulty: payload.difficulty,
         choices: payload.choices.slice(0,4)
      }
-     console.log(data)
+     console.log("Action", action)
+     console.log("Data", data)
     const response = yield updateQuestionDetailsApi(data);
     yield put(succcessUpdate(response));
     yield put(fetchQuestionDataProgress());
