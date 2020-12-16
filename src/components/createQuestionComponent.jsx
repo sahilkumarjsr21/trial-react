@@ -553,6 +553,7 @@ export default function CreateQuestion(props) {
                                 required
                                 id="choice1"
                                 name="choice1"
+                                defaultValue={formData.choices[0].optionDescription}
                                 onChange={handleChoice}
                                 error={formErrors.choiceError1}
                                 helperText={formErrors.choiceError1Message}
@@ -566,7 +567,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect1"
                                     id="gender"
-                                    defaultValue={isCorrectList[0]}
+                                    defaultValue={formData.choices[0].isCorrect ? formData.choices[0].isCorrect : isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect1",
@@ -590,6 +591,7 @@ export default function CreateQuestion(props) {
                                 required
                                 id="choice2"
                                 name="choice2"
+                                defaultValue={formData.choices[1].optionDescription}
                                 error={formErrors.choiceError2}
                                 onChange={handleChoice}
                                 helperText={formErrors.choiceError2Message}
@@ -603,7 +605,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect2"
                                     id="gender"
-                                    defaultValue={isCorrectList[0]}
+                                    defaultValue={formData.choices[1].isCorrect ? formData.choices[1].isCorrect : isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect2",
@@ -627,6 +629,7 @@ export default function CreateQuestion(props) {
                                 required
                                 id="choice3"
                                 name="choice3"
+                                defaultValue={formData.choices[2].optionDescription}
                                 error={formErrors.choiceError3}
                                 helperText={formErrors.choiceError3Message}
                                 onChange={handleChoice}
@@ -640,7 +643,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect3"
                                     id="gender"
-                                    defaultValue={isCorrectList[0]}
+                                    defaultValue={formData.choices[2].isCorrect ? formData.choices[2].isCorrect : isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect3",
@@ -664,6 +667,7 @@ export default function CreateQuestion(props) {
                                 required
                                 id="choice4"
                                 name="choice4"
+                                defaultValue={formData.choices[3].optionDescription}
                                 error={formErrors.choiceError4}
                                 helperText={formErrors.choiceError4Message}
                                 onChange={handleChoice}
@@ -677,7 +681,7 @@ export default function CreateQuestion(props) {
                                     label="Option is Correct"
                                     name="isCorrect4"
                                     id="gender"
-                                    defaultValue={isCorrectList[0]}
+                                    defaultValue={formData.choices[3].isCorrect ? formData.choices[3].isCorrect : isCorrectList[0]}
                                     onChange={handleOptionChange}
                                     inputProps={{
                                         name: "isCorrect4",
